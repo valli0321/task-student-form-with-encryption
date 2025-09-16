@@ -43,7 +43,7 @@ export default function StudentList() {
       const res = await axios.get(`${URL}/students`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(res.data.data)
+      
       const decryptedStudents = res.data.data.map((student: Student) => ({
           ...student,
           fullName: decryptData(student.fullName),
@@ -53,7 +53,7 @@ export default function StudentList() {
           address: decryptData(student.address),
           courseEnrolled: decryptData(student.courseEnrolled),
         }));
-        console.log(decryptedStudents)
+        
       setStudents(decryptedStudents);
 
     } catch (err: any) {
