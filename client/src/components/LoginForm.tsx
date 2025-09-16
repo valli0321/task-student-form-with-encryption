@@ -66,13 +66,14 @@ export function LoginForm() {
     if (response.data.success) {
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("refreshToken", response.data.refreshToken);
+      localStorage.setItem("student", JSON.stringify({...response.data.data}))
       navigate("/");
     } else {
       setError(response.data.message || "Login failed");
     }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Login error:", err)
-      setError("An error occurred during login. Please try again.")
+      setError(err.response?.data?.message || err.response?.data?.error || "An error occurred during login. Please try again.")
     } finally {
       setIsLoading(false)
     }

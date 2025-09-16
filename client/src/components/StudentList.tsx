@@ -30,6 +30,7 @@ export default function StudentList() {
 
   const URL = import.meta.env.VITE_API_URL!;
 
+  const loggedInStudent = JSON.parse(localStorage.getItem("student")!);
 
   useEffect(() => {
     fetchStudents();
@@ -42,7 +43,7 @@ export default function StudentList() {
       const res = await axios.get(`${URL}/students`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      
+      console.log(res.data.data)
       const decryptedStudents = res.data.data.map((student: Student) => ({
           ...student,
           fullName: decryptData(student.fullName),
@@ -52,7 +53,7 @@ export default function StudentList() {
           address: decryptData(student.address),
           courseEnrolled: decryptData(student.courseEnrolled),
         }));
-        
+        console.log(decryptedStudents)
       setStudents(decryptedStudents);
 
     } catch (err: any) {
@@ -125,7 +126,7 @@ export default function StudentList() {
           <TableBody>
             {students.map((student) => (
               <TableRow key={student._id}>
-                <TableCell>{student.fullName}</TableCell>
+                <TableCell>{student.fullName} {loggedInStudent?._id === student._id && <span className="bg-blue-600 border rounded-lg p-1 text-xs font-semibold text-amber-50">Logged In</span>}</TableCell>
                 <TableCell>{student.email}</TableCell>
                 <TableCell>{student.phoneNumber}</TableCell>
                 <TableCell>{new Date(student.dateOfBirth).toLocaleDateString()}</TableCell>
@@ -136,7 +137,7 @@ export default function StudentList() {
                   <Button size="sm" variant="outline" onClick={() => handleEdit(student)}>
                     <Edit className="h-4 w-4" />
                   </Button>
-                  <Button size="sm" variant="destructive" onClick={() => handleDelete(student._id)}>
+                  <Button size="sm" variant="destructive" disabled={loggedInStudent?._id === student._id} onClick={() => handleDelete(student._id)}>
                     <Trash className="h-4 w-4" />
                   </Button>
                 </TableCell>

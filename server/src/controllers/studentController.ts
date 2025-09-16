@@ -79,7 +79,11 @@ export const loginStudent = async (req: Request, res: Response) => {
     const accessToken = student.generateAccessToken();
     const refreshToken = student.generateRefreshToken();
 
-    res.status(200).json({ success: true, message: "Login successful", accessToken, refreshToken });
+    res.status(200).json({ success: true, message: "Login successful", accessToken, refreshToken, data: {
+      _id: student._id,
+      fullName: student.fullName,
+      email: student.email,
+    } });
   } catch (error: any) {
     res.status(500).json({ success: false, message: error.message });
   }

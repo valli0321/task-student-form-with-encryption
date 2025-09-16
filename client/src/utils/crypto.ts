@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js';
 
-const FRONTEND_KEY = 'b144cb13304a3745accaa0962d2a4fdd43e29d64cfb387132fe94b8209c1c691';
+const FRONTEND_KEY = import.meta.env.VITE_FRONTEND_KEY;
 const FIXED_IV = CryptoJS.enc.Hex.parse('1234567890abcdef1234567890abcdef');
 
 export function encryptData(plainText: string): string {

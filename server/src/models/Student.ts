@@ -66,7 +66,7 @@ const StudentSchema: Schema<IStudent> = new Schema(
 StudentSchema.methods.generateAccessToken = function (): string {
   return jwt.sign(
     { id: this._id, email: this.email },
-    process.env.JWT_SECRET || "supersecret",
+    process.env.JWT_SECRET!,
     { expiresIn: "1d" }
   );
 };
@@ -74,7 +74,7 @@ StudentSchema.methods.generateAccessToken = function (): string {
 StudentSchema.methods.generateRefreshToken = function (): string {
   return jwt.sign(
     { id: this._id },
-    process.env.JWT_REFRESH_SECRET || "supersecretrefresh",
+    process.env.JWT_REFRESH_SECRET!,
     { expiresIn: "7d" }
   );
 };

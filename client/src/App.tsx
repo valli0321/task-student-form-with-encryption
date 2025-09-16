@@ -3,8 +3,8 @@ import './App.css'
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { LoginForm } from "@/components/LoginForm";
-import StudentList from "@/components/StudentList";
 import { StudentRegistrationForm } from "@/components/StudentForm";
+import StudentListPage from './pages/StudentListPage';
 
 const isLoggedIn = (): boolean => {
   const token = localStorage.getItem("accessToken");
@@ -28,7 +28,7 @@ const App: React.FC = () => {
           path="/"
           element={
             <PrivateRoute>
-              <StudentList />
+              <StudentListPage />
             </PrivateRoute>
           }
         />

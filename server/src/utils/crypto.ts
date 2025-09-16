@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 import bcrypt from 'bcrypt';
 
-const BACKEND_KEY = Buffer.from('ca104c7782e85891827c2622a2e80c1fed4b40d3de2737b6db275980263c3ff4', 'hex'); // 32 bytes for AES-256
+const BACKEND_KEY = Buffer.from(process.env.BACKEND_SECRET_KEY!, 'hex'); // using directly here for now
 const ALGORITHM = 'aes-256-cbc';
 
 export function encryptData(plainText: string): string {
